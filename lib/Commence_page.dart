@@ -16,75 +16,81 @@ class CommencePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black45,
-      body: Column(
-        children: [
-          Expanded(
-              child: Container(
-            child: Text(
-              "TIC TAC TOE",
-              style: myNewFontWhite,
-            ),
-          )),
-          Expanded(
-              flex: 2,
-              child: Container(
-                child: AvatarGlow(
-                    duration: Duration(seconds: 500),
-                    glowColor: Colors.white,
-                    repeat: true,
-                    // repeatPauseDuration: Duration(seconds: 1),
-                    startDelay: Duration(seconds: 1),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(style: BorderStyle.none),
-                          shape: BoxShape.rectangle),
-                      child: CircleAvatar(
-                        backgroundColor: Colors.grey[900],
-                        radius: 88.0,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Image.asset(
-                            'lib/images/code9.jpg',
-                            // color: Colors.white,
-                            fit: BoxFit.scaleDown,
-                          ),
-                        ),
-                      ),
-                    )),
-              )),
-          Expanded(
-              child: Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Container(
+      body: SafeArea(
+        child: Column(
+          children: [
+            SizedBox(height: 50),
+            Expanded(
+                child: Container(
               child: Text(
-                "@CREATEDBYRENDOSLAND",
+                "TIC TAC TOE",
                 style: myNewFontWhite,
               ),
-            ),
-          )),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => HomePage()));
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
+            )),
+            Expanded(
+                flex: 3,
                 child: Container(
-                  color: Colors.white,
-                  padding: EdgeInsets.all(30),
-                  child: Center(
-                      child: Text(
-                    "PLAY GAME",
-                    style: myNewFont,
-                  )),
+                  child: AvatarGlow(
+                      duration: Duration(seconds: 500),
+                      glowColor: Colors.white,
+                      repeat: true,
+                      // repeatPauseDuration: Duration(seconds: 1),
+                      startDelay: Duration(seconds: 1),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(style: BorderStyle.none),
+                            shape: BoxShape.rectangle),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.grey[900],
+                          radius: 88.0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Image.asset(
+                              'lib/images/code9.jpg',
+                              // color: Colors.white,
+                              fit: BoxFit.scaleDown,
+                            ),
+                          ),
+                        ),
+                      )),
+                )),
+            Expanded(
+                child: Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Container(
+                child: Text(
+                  "@CREATEDBYRENDOSLAND",
+                  style: myNewFontWhite,
+                ),
+              ),
+            )),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 130.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomePage()));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Container(
+                      color: Colors.white,
+                      padding: EdgeInsets.all(30),
+                      child: Center(
+                          child: Text(
+                        "PLAY GAME",
+                        style: myNewFont,
+                      )),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
