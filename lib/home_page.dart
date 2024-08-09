@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, avoid_unnecessary_containers, unused_local_variable, prefer_interpolation_to_compose_strings, prefer_const_literals_to_create_immutables, sort_child_properties_last
+// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, avoid_unnecessary_containers, unused_local_variable, prefer_interpolation_to_compose_strings, prefer_const_literals_to_create_immutables, sort_child_properties_last, unused_field
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,11 +16,17 @@ class _HomePageState extends State<HomePage> {
   List<String> displayExOh = ["", "", "", "", "", "", "", "", ""];
   int ohScore = 0;
   int exScore = 0;
+  int tabboxes = 0;
 
+  //fonts
+  static var myNewFont = GoogleFonts.pressStart2p(
+      textStyle: TextStyle(color: Colors.black, letterSpacing: 3));
+  static var myNewFontWhite = GoogleFonts.pressStart2p(
+      textStyle: TextStyle(color: Colors.white, letterSpacing: 3));
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey.shade900,
+      backgroundColor: Colors.grey.shade900,
       body: Column(children: [
         Expanded(
           child: Container(
@@ -29,20 +36,16 @@ class _HomePageState extends State<HomePage> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Player o",
-                        style: TextStyle(color: Colors.white, fontSize: 30)),
-                    Text(ohScore.toString(),
-                        style: TextStyle(color: Colors.white, fontSize: 30)),
+                    Text("Player o", style: myNewFontWhite),
+                    Text(ohScore.toString(), style: myNewFontWhite),
                   ],
                 ),
                 SizedBox(width: 25),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Player x",
-                        style: TextStyle(color: Colors.white, fontSize: 30)),
-                    Text(exScore.toString(),
-                        style: TextStyle(color: Colors.white, fontSize: 30)),
+                    Text("Player x", style: myNewFontWhite),
+                    Text(exScore.toString(), style: myNewFontWhite),
                   ],
                 )
               ],
@@ -61,13 +64,12 @@ class _HomePageState extends State<HomePage> {
                     _tapped(index);
                   },
                   child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey.shade900)),
+                    decoration:
+                        BoxDecoration(border: Border.all(color: Colors.white)),
                     child: Center(
                         child: Text(
                       displayExOh[index],
-                      style: TextStyle(
-                          fontSize: 40.0, color: Colors.grey.shade200),
+                      style: myNewFontWhite,
                     )),
                   ),
                 );
@@ -75,8 +77,14 @@ class _HomePageState extends State<HomePage> {
         ),
         Expanded(
           child: Container(
-              // color: Colors.red,
+              child: Column(
+            children: [
+              Text(
+                "TIC TAC TOE",
+                style: myNewFontWhite,
               ),
+            ],
+          )),
         ),
       ]),
     );
@@ -86,8 +94,10 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       if (ohTurn && displayExOh[index] == "") {
         displayExOh[index] = "o";
+        tabboxes += 1;
       } else if (!ohTurn && displayExOh[index] == "") {
         displayExOh[index] = "x";
+        tabboxes += 1;
       }
 
       ohTurn = !ohTurn;
@@ -144,7 +154,26 @@ class _HomePageState extends State<HomePage> {
         displayExOh[0] == displayExOh[8] &&
         displayExOh[0] != "") {
       _showWinDialog(displayExOh[0]);
+    } else if (tabboxes == 9) {
+      _showDrawDialog();
     }
+  }
+
+  void _showDrawDialog() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(title: Text("DRAW"), actions: <Widget>[
+            MaterialButton(
+                color: Colors.amber,
+                child: Text("Play Again"),
+                onPressed: () {
+                  _clearboard();
+                  Navigator.of(context).pop();
+                })
+          ]);
+        });
   }
 
   void _showWinDialog(String winner) {
@@ -178,5 +207,6 @@ class _HomePageState extends State<HomePage> {
         displayExOh[i] = "";
       }
     });
+    tabboxes = 0;
   }
 }
